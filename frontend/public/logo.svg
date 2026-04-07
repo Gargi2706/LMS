@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" fill="none">
+  <!-- Top Wing -->
+  <path d="M15 60 C 15 30, 50 25, 100 25 C 80 40, 45 45, 25 60 Z" fill="white" />
+  
+  <!-- Middle Wing -->
+  <path d="M20 73 C 25 48, 55 45, 90 45 C 75 55, 50 60, 32 73 Z" fill="white" />
+  
+  <!-- Bottom E Loop -->
+  <path d="M50 70 L 75 70 C 80 70, 75 85, 60 90 C 40 95, 20 85, 20 73 C 15 85, 25 105, 50 100 C 65 97, 75 85, 75 85 C 65 95, 55 90, 50 70 Z" fill="white" />
+  
+  <defs>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="100%" stop-color="#e2e8f0"/>
+    </linearGradient>
+  </defs>
+</svg>
