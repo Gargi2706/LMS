@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: import.meta.env.PROD ? "https://lms-6prw.onrender.com/api" : "/api",
+  baseURL: import.meta.env.PROD ? "http://localhost:5050/api" : "/api",
   headers: { "Content-Type": "application/json" },
 });
 
