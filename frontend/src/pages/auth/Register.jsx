@@ -44,7 +44,7 @@ const Register = () => {
           </div>
         )}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} autoComplete="off">
           <div className="mb-3">
             <label className="form-label" style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
               Full Name
@@ -57,6 +57,7 @@ const Register = () => {
               placeholder="John Doe"
               value={form.name}
               onChange={handleChange}
+              autoComplete="off"
               required
             />
           </div>
@@ -73,6 +74,7 @@ const Register = () => {
               placeholder="you@example.com"
               value={form.email}
               onChange={handleChange}
+              autoComplete="off"
               required
             />
           </div>
@@ -90,6 +92,7 @@ const Register = () => {
                 placeholder="Min. 6 characters"
                 value={form.password}
                 onChange={handleChange}
+                autoComplete="new-password"
                 required
               />
               <button

@@ -3,6 +3,9 @@ import { Provider } from "react-redux";
 import store from "./store";
 import ProtectedRoute from "./components/templates/ProtectedRoute";
 
+// Public
+import LandingPage from "./pages/public/LandingPage";
+
 // Auth
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
@@ -39,7 +42,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           {/* Public */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
