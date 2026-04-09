@@ -28,4 +28,14 @@ const getProfile = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login, getProfile };
+const changePassword = async (req, res, next) => {
+  try {
+    const { oldPassword, newPassword } = req.body;
+    await authService.changePassword(req.user._id, oldPassword, newPassword);
+    return sendResponse(res, 200, "Password updated successfully.");
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { register, login, getProfile, changePassword };

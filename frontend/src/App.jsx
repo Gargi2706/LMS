@@ -6,6 +6,7 @@ import ProtectedRoute from "./components/templates/ProtectedRoute";
 // Auth
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
+import ChangePassword from "./pages/auth/ChangePassword";
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -41,6 +42,9 @@ function App() {
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
+          <Route path="/change-password" element={
+            <ProtectedRoute roles={["student", "instructor", "admin"]}><ChangePassword /></ProtectedRoute>
+          } />
 
           {/* Student routes */}
           <Route path="/student/dashboard" element={

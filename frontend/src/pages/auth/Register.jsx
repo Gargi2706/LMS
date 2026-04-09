@@ -7,6 +7,7 @@ const Register = () => {
   const [form, setForm] = useState({ name: "", email: "", password: "", role: "student" });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e) => setForm({ ...form, [e.target.name]: e.target.value });
 
@@ -80,16 +81,26 @@ const Register = () => {
             <label className="form-label" style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
               Password
             </label>
-            <input
-              id="reg-password"
-              type="password"
-              name="password"
-              className="form-control"
-              placeholder="Min. 6 characters"
-              value={form.password}
-              onChange={handleChange}
-              required
-            />
+            <div className="position-relative">
+              <input
+                id="reg-password"
+                type={showPassword ? "text" : "password"}
+                name="password"
+                className="form-control pe-5"
+                placeholder="Min. 6 characters"
+                value={form.password}
+                onChange={handleChange}
+                required
+              />
+              <button
+                type="button"
+                className="btn btn-link position-absolute top-50 end-0 translate-middle-y text-muted-custom text-decoration-none"
+                onClick={() => setShowPassword(!showPassword)}
+                style={{ zIndex: 10 }}
+              >
+                {showPassword ? "👁️" : "🙈"}
+              </button>
+            </div>
           </div>
 
           <div className="mb-4">

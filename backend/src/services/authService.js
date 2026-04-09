@@ -59,4 +59,17 @@ const getProfile = async (userId) => {
   return user;
 };
 
-module.exports = { registerUser, loginUser, getProfile };
+const changePassword = async (userId, oldPassword, newPassword) => {
+  const user = await User.findById(userId);
+  if (!user) throw new ApiError(404, "User not found.");
+
+  const isMatch = await user.matchPassword(oldPassword);
+  if (!isMatch) throw new ApiError(401, "Incorrect current password.");
+
+  if (newPassword.length < 6) throw new ApiError(400, "New password must be at least 6 characters.");
+
+  user.password = newPassword;
+  await user.save();
+};
+
+module.exports = { registerUser, loginUser, getProfile, changePassword };

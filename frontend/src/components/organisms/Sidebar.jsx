@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../../store/slices/authSlice";
@@ -20,7 +21,7 @@ const navItems = {
   ],
 };
 
-const Sidebar = () => {
+const Sidebar = ({ isOpen, sidebarRef, onLogoClick }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user } = useSelector((state) => state.auth);
@@ -33,8 +34,12 @@ const Sidebar = () => {
   };
 
   return (
-    <aside className="sidebar">
-      <div className="sidebar-logo-container">
+    <aside ref={sidebarRef} className={`sidebar ${isOpen ? "open" : ""}`}>
+      <div 
+        className="sidebar-logo-container" 
+        onClick={onLogoClick} 
+        style={{ cursor: "pointer" }}
+      >
         <img src="/logo.svg" alt="EduFlow Wing" className="sidebar-logo-img" />
         <div className="sidebar-logo">EduFlow</div>
       </div>
@@ -60,6 +65,13 @@ const Sidebar = () => {
             {user?.role?.charAt(0).toUpperCase() + user?.role?.slice(1)}
           </p>
         </div>
+        <button
+          className="btn btn-sm w-100 mb-2"
+          style={{ background: "rgba(255,255,255,0.1)", color: "#e2e8f0", border: "1px solid rgba(255,255,255,0.2)" }}
+          onClick={() => navigate("/change-password")}
+        >
+          🔒 Change Password
+        </button>
         <button
           className="btn btn-sm w-100"
           style={{ background: "rgba(239,68,68,0.1)", color: "#ef4444", border: "1px solid rgba(239,68,68,0.3)" }}
