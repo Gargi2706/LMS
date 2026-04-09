@@ -15,6 +15,7 @@ import LessonPlayer from "./pages/student/LessonPlayer";
 
 // Instructor
 import InstructorDashboard from "./pages/instructor/InstructorDashboard";
+import InstructorCourses from "./pages/instructor/InstructorCourses";
 import CourseForm from "./pages/instructor/CourseForm";
 import ManageLessons from "./pages/instructor/ManageLessons";
 
@@ -65,7 +66,7 @@ function App() {
             <ProtectedRoute roles={["instructor"]}><InstructorDashboard /></ProtectedRoute>
           } />
           <Route path="/instructor/courses" element={
-            <ProtectedRoute roles={["instructor"]}><InstructorDashboard /></ProtectedRoute>
+            <ProtectedRoute roles={["instructor"]}><InstructorCourses /></ProtectedRoute>
           } />
           <Route path="/instructor/courses/new" element={
             <ProtectedRoute roles={["instructor"]}><CourseForm /></ProtectedRoute>
