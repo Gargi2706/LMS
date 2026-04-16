@@ -38,4 +38,27 @@ const changePassword = async (req, res, next) => {
   }
 };
 
-module.exports = { register, login, getProfile, changePassword };
+const forgotPassword = async (req, res, next) => {
+  try {
+    const { email } = req.body;
+    if (!email) throw new ApiError(400, "Please provide an email.");
+    await authService.forgotPassword(email);
+    return sendResponse(res, 200, "Email sent successfully.");
+  } catch (error) {
+    next(error);
+  }
+};
+
+const resetPassword = async (req, res, next) => {
+  try {
+    const { token } = req.params;
+    const { password } = req.body;
+    if (!password) throw new ApiError(400, "Please provide a new password.");
+    await authService.resetPassword(token, password);
+    return sendResponse(res, 200, "Password reset successfully.");
+  } catch (error) {
+    next(error);
+  }
+};
+
+module.exports = { register, login, getProfile, changePassword, forgotPassword, resetPassword };

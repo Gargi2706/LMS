@@ -10,6 +10,8 @@ import LandingPage from "./pages/public/LandingPage";
 import Login from "./pages/auth/Login";
 import Register from "./pages/auth/Register";
 import ChangePassword from "./pages/auth/ChangePassword";
+import ForgotPassword from "./pages/auth/ForgotPassword";
+import ResetPassword from "./pages/auth/ResetPassword";
 
 // Student
 import StudentDashboard from "./pages/student/StudentDashboard";
@@ -45,6 +47,8 @@ function App() {
           <Route path="/" element={<LandingPage />} />
           <Route path="/login" element={<Login />} />
           <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
+          <Route path="/reset-password/:token" element={<ResetPassword />} />
           <Route path="/unauthorized" element={<Unauthorized />} />
           <Route path="/change-password" element={
             <ProtectedRoute roles={["student", "instructor", "admin"]}><ChangePassword /></ProtectedRoute>

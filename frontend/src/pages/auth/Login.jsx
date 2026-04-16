@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { login } from "../../services/authService";
 import { setCredentials } from "../../store/slices/authSlice";
+import ThemeToggle from "../../components/atoms/ThemeToggle";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -33,7 +34,10 @@ const Login = () => {
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-page position-relative">
+      <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+        <ThemeToggle />
+      </div>
       <div className="auth-card">
         <div className="text-center mb-4">
           <div className="d-flex align-items-center justify-content-center mb-2" style={{ gap: '12px' }}>
@@ -93,6 +97,11 @@ const Login = () => {
               >
                 {showPassword ? "👁️" : "🙈"}
               </button>
+            </div>
+            <div className="d-flex justify-content-end mt-2">
+              <Link to="/forgot-password" style={{ fontSize: "0.85rem", color: "var(--primary-light)", textDecoration: "none" }}>
+                Forgot Password?
+              </Link>
             </div>
           </div>
 

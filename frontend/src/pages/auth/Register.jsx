@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../../services/authService";
+import ThemeToggle from "../../components/atoms/ThemeToggle";
 
 const Register = () => {
   const navigate = useNavigate();
@@ -26,7 +27,10 @@ const Register = () => {
   };
 
   return (
-    <div className="auth-page">
+    <div className="auth-page position-relative">
+      <div style={{ position: "absolute", top: "20px", right: "20px" }}>
+        <ThemeToggle />
+      </div>
       <div className="auth-card">
         <div className="text-center mb-4">
           <div className="d-flex align-items-center justify-content-center mb-2" style={{ gap: '12px' }}>

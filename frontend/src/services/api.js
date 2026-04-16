@@ -17,9 +17,13 @@ API.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
-      localStorage.removeItem("token");
-      localStorage.removeItem("user");
-      window.location.href = "/login";
+      // Avoid forcing a page reload if the user is already on an auth page trying to authenticate
+      const isAuthRequest = error.config?.url?.includes("/auth/login") || error.config?.url?.includes("/auth/register");
+      if (!isAuthRequest) {
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
+      }
     }
     return Promise.reject(error);
   }
