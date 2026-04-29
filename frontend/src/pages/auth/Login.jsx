@@ -27,7 +27,7 @@ const Login = () => {
       else if (role === "instructor") navigate("/instructor/dashboard");
       else navigate("/student/dashboard");
     } catch (err) {
-      setError(err.response?.data?.message || "Login failed. Please try again.");
+      setError(err.response?.data?.message || err.message || "Login failed. Please try again.");
     } finally {
       setLoading(false);
     }
