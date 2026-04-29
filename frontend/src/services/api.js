@@ -1,6 +1,8 @@
 import axios from "axios";
 
-const baseURL = import.meta.env.VITE_API_URL || (import.meta.env.PROD ? "https://lms-6prw.onrender.com" : "/api");
+// In development, Vite proxy will forward `/api` to the backend server.
+// In production, set VITE_API_URL to your deployed backend URL on Vercel/other host.
+const baseURL = import.meta.env.VITE_API_URL || "/api";
 
 const API = axios.create({
   baseURL,
