@@ -7,6 +7,16 @@ import { getCourseById } from "../../services/courseService";
 import { getMyEnrollments, markLessonComplete } from "../../services/enrollmentService";
 import CourseReviews from "../../components/organisms/CourseReviews";
 
+const getMediaUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  const rawBaseUrl = import.meta.env.VITE_API_URL;
+  const baseUrl = rawBaseUrl
+    ? rawBaseUrl.replace(/\/+$/g, "").replace(/\/api$/g, "")
+    : window.location.origin;
+  return new URL(path, baseUrl).href;
+};
+
 const LessonPlayer = () => {
   const { courseId } = useParams();
   const [course, setCourse] = useState(null);
@@ -66,7 +76,7 @@ const LessonPlayer = () => {
                   </h5>
                   {activeLesson.contentType === "video" && activeLesson.videoUrl ? (
                     <video
-                      src={activeLesson.videoUrl}
+                      src={getMediaUrl(activeLesson.videoUrl)}
                       controls
                       style={{ width: "100%", borderRadius: 8, background: "#000" }}
                     />

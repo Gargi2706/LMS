@@ -28,7 +28,7 @@ const LandingPage = () => {
   }, []);
 
   return (
-    <div style={{ minHeight: "100vh", backgroundColor: "var(--bg-dark)", color: "var(--text-light)" }}>
+    <div style={{ minHeight: "100vh", backgroundColor: "var(--bg-dark)", color: "var(--text-main)" }}>
       {/* Navigation */}
       <nav className="navbar navbar-expand-lg border-bottom px-4 py-3" style={{ borderColor: "var(--border-dark)" }}>
         <div className="container-fluid align-items-center">
