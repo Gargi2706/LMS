@@ -122,7 +122,7 @@ const LandingPage = () => {
         )}
       </main>
 
-      <footer className="py-4 border-top text-center" style={{ borderColor: "var(--border-dark)", background: "var(--bg-dark)" }}>
+      <footer className="py-4 border-top text-center" style={{ borderColor: "rgba(148, 163, 184, 0.24)", background: "var(--bg-dark)" }}>
         <p className="mb-0 text-muted" style={{ fontSize: "0.85rem" }}>© 2026 EduFlow Learning Management System. All rights reserved.</p>
       </footer>
     </div>
