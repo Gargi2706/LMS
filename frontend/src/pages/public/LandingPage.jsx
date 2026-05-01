@@ -3,6 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import { getAllCourses } from "../../services/courseService";
 import Spinner from "../../components/atoms/Spinner";
 
+const getImageUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  const rawBaseUrl = import.meta.env.VITE_API_URL;
+  const baseUrl = rawBaseUrl ? rawBaseUrl.replace(/\/+$/g, "").replace(/\/api$/g, "") : "";
+  return `${baseUrl}${path}`;
+};
+
 const LandingPage = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -81,7 +89,7 @@ const LandingPage = () => {
                 <div className="card h-100 bg-dark-card border-dark-custom overflow-hidden shadow-sm" style={{ transition: "transform 0.2s", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "none"} onClick={() => navigate('/login')}>
                   <div style={{ height: "180px", backgroundColor: "rgba(255,255,255,0.05)", position: "relative" }}>
                     {course.thumbnail ? (
-                      <img src={`http://localhost:5050${course.thumbnail}`} alt={course.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+                      <img src={getImageUrl(course.thumbnail)} alt={course.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
                     ) : (
                       <div className="d-flex align-items-center justify-content-center w-100 h-100 placeholder-wave">
                         <span style={{ fontSize: "3rem" }}>📚</span>

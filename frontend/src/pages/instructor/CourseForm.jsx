@@ -14,12 +14,20 @@ const CourseForm = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
+  const getImageUrl = (path) => {
+    if (!path) return "";
+    if (path.startsWith("http")) return path;
+    const rawBaseUrl = import.meta.env.VITE_API_URL;
+    const baseUrl = rawBaseUrl ? rawBaseUrl.replace(/\/+$/g, "").replace(/\/api$/g, "") : "";
+    return `${baseUrl}${path}`;
+  };
+
   useEffect(() => {
     if (isEdit) {
       getCourseById(id).then(({ data }) => {
         const c = data.data;
         setForm({ title: c.title, description: c.description, category: c.category || "" });
-        if (c.thumbnail) setPreview(`http://localhost:5000${c.thumbnail}`);
+        if (c.thumbnail) setPreview(getImageUrl(c.thumbnail));
       });
     }
   }, [id]);

@@ -1,9 +1,15 @@
 import { Link } from "react-router-dom";
 
+const getImageUrl = (path) => {
+  if (!path) return "";
+  if (path.startsWith("http")) return path;
+  const rawBaseUrl = import.meta.env.VITE_API_URL;
+  const baseUrl = rawBaseUrl ? rawBaseUrl.replace(/\/+$/g, "").replace(/\/api$/g, "") : "";
+  return `${baseUrl}${path}`;
+};
+
 const CourseCard = ({ course, actionLabel, onAction, showProgress, progress = 0 }) => {
-  const thumbnail = course.thumbnail
-    ? course.thumbnail
-    : null;
+  const thumbnail = course.thumbnail ? getImageUrl(course.thumbnail) : null;
 
   return (
     <div className="course-card fade-in-up">
