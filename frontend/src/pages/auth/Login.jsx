@@ -5,6 +5,32 @@ import { login } from "../../services/authService";
 import { setCredentials } from "../../store/slices/authSlice";
 import ThemeToggle from "../../components/atoms/ThemeToggle";
 
+const EyeIcon = ({ open }) => (
+  <svg
+    xmlns="http://www.w3.org/2000/svg"
+    viewBox="0 0 24 24"
+    width="20"
+    height="20"
+    fill="none"
+    stroke="currentColor"
+    strokeWidth="2"
+    strokeLinecap="round"
+    strokeLinejoin="round"
+  >
+    {open ? (
+      <>
+        <path d="M1 12s4.5-7 11-7 11 7 11 7-4.5 7-11 7S1 12 1 12z" />
+        <circle cx="12" cy="12" r="3" />
+      </>
+    ) : (
+      <>
+        <path d="M1 12s4.5-7 11-7 11 7 11 7-4.5 7-11 7S1 12 1 12z" />
+        <line x1="2" y1="2" x2="22" y2="22" />
+      </>
+    )}
+  </svg>
+);
+
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -94,8 +120,9 @@ const Login = () => {
                 className="btn btn-link position-absolute top-50 end-0 translate-middle-y text-muted-custom text-decoration-none"
                 onClick={() => setShowPassword(!showPassword)}
                 style={{ zIndex: 10 }}
+                aria-label={showPassword ? "Hide password" : "Show password"}
               >
-                {showPassword ? "👁️" : "🙈"}
+                <EyeIcon open={showPassword} />
               </button>
             </div>
           </div>
