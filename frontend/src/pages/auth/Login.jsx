@@ -98,11 +98,6 @@ const Login = () => {
                 {showPassword ? "👁️" : "🙈"}
               </button>
             </div>
-            <div className="d-flex justify-content-end mt-2">
-              <Link to="/forgot-password" style={{ fontSize: "0.85rem", color: "var(--primary-light)", textDecoration: "none" }}>
-                Forgot Password?
-              </Link>
-            </div>
           </div>
 
           <button
