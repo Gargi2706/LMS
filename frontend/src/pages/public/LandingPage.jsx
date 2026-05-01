@@ -91,9 +91,16 @@ const LandingPage = () => {
             {courses.map((course) => {
               const imageUrl = getImageUrl(course.thumbnail);
               const hasImageFailed = imageErrors[course._id];
+
               return (
                 <div key={course._id} className="col-12 col-md-6 col-lg-4">
-                  <div className="card h-100 bg-dark-card border-dark-custom overflow-hidden shadow-sm" style={{ transition: "transform 0.2s", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "none"} onClick={() => navigate('/login')}>
+                  <div
+                    className="card h-100 bg-dark-card border-dark-custom overflow-hidden shadow-sm"
+                    style={{ transition: "transform 0.2s", cursor: "pointer" }}
+                    onMouseEnter={(e) => (e.currentTarget.style.transform = "translateY(-5px)")}
+                    onMouseLeave={(e) => (e.currentTarget.style.transform = "none")}
+                    onClick={() => navigate('/login')}
+                  >
                     <div style={{ height: "180px", backgroundColor: "rgba(255,255,255,0.05)", position: "relative" }}>
                       <img
                         src={course.thumbnail && !hasImageFailed ? imageUrl : placeholderImage}
@@ -110,25 +117,26 @@ const LandingPage = () => {
                         {course.category}
                       </span>
                     </div>
-                  <div className="card-body d-flex flex-column p-4">
-                    <h5 className="card-title fw-bold text-truncate mb-2" title={course.title}>{course.title}</h5>
-                    <p className="card-text text-muted mb-4" style={{ fontSize: "0.9rem", display: "-webkit-box", WebkitLineClamp: "3", WebkitBoxOrient: "vertical", overflow: "hidden" }}>
-                      {course.description}
-                    </p>
-                    <div className="mt-auto d-flex align-items-center justify-content-between">
-                      <div className="d-flex align-items-center gap-2">
-                        <div className="rounded-circle d-flex align-items-center justify-content-center fw-bold" style={{ width: "32px", height: "32px", backgroundColor: "var(--primary-dark)", color: "var(--primary-light)", fontSize: "0.8rem" }}>
-                          {course.instructor?.name?.charAt(0).toUpperCase() || "I"}
+                    <div className="card-body d-flex flex-column p-4">
+                      <h5 className="card-title fw-bold text-truncate mb-2" title={course.title}>{course.title}</h5>
+                      <p className="card-text text-muted mb-4" style={{ fontSize: "0.9rem", display: "-webkit-box", WebkitLineClamp: "3", WebkitBoxOrient: "vertical", overflow: "hidden" }}>
+                        {course.description}
+                      </p>
+                      <div className="mt-auto d-flex align-items-center justify-content-between">
+                        <div className="d-flex align-items-center gap-2">
+                          <div className="rounded-circle d-flex align-items-center justify-content-center fw-bold" style={{ width: "32px", height: "32px", backgroundColor: "var(--primary-dark)", color: "var(--primary-light)", fontSize: "0.8rem" }}>
+                            {course.instructor?.name?.charAt(0).toUpperCase() || "I"}
+                          </div>
+                          <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
+                            {course.instructor?.name || "Unknown Instructor"}
+                          </span>
                         </div>
-                        <span style={{ fontSize: "0.85rem", color: "var(--text-muted)" }}>
-                          {course.instructor?.name || "Unknown Instructor"}
-                        </span>
                       </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         )}
       </main>
