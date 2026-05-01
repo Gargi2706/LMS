@@ -1,4 +1,6 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
+import placeholderImage from "../../assets/hero.png";
 
 const getImageUrl = (path) => {
   if (!path) return "";
@@ -11,19 +13,24 @@ const getImageUrl = (path) => {
 };
 
 const CourseCard = ({ course, actionLabel, onAction, showProgress, progress = 0 }) => {
-  const thumbnail = course.thumbnail ? getImageUrl(course.thumbnail) : null;
+  const [imageFailed, setImageFailed] = useState(false);
+  const remoteThumbnail = course.thumbnail ? getImageUrl(course.thumbnail) : "";
+  const thumbnail = course.thumbnail && !imageFailed ? remoteThumbnail : placeholderImage;
 
   return (
     <div className="course-card fade-in-up">
       <div
         className="course-card-img d-flex align-items-center justify-content-center"
-        style={
-          thumbnail
-            ? { backgroundImage: `url(${thumbnail})`, backgroundSize: "cover", backgroundPosition: "center" }
-            : { background: "linear-gradient(135deg, #1e293b, #1a1a3e)" }
-        }
+        style={{ backgroundImage: `url(${thumbnail})`, backgroundSize: "cover", backgroundPosition: "center" }}
       >
-        {!thumbnail && <span style={{ fontSize: "2.5rem" }}>📚</span>}
+        {course.thumbnail && !imageFailed && (
+          <img
+            src={remoteThumbnail}
+            alt={course.title}
+            style={{ display: "none" }}
+            onError={() => setImageFailed(true)}
+          />
+        )}
       </div>
 
       <div className="course-card-body">

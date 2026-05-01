@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { getAllCourses } from "../../services/courseService";
 import Spinner from "../../components/atoms/Spinner";
+import placeholderImage from "../../assets/hero.png";
 
 const getImageUrl = (path) => {
   if (!path) return "";
@@ -16,6 +17,7 @@ const getImageUrl = (path) => {
 const LandingPage = () => {
   const [courses, setCourses] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [imageErrors, setImageErrors] = useState({});
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -86,21 +88,28 @@ const LandingPage = () => {
           </div>
         ) : (
           <div className="row g-4">
-            {courses.map((course) => (
-              <div key={course._id} className="col-12 col-md-6 col-lg-4">
-                <div className="card h-100 bg-dark-card border-dark-custom overflow-hidden shadow-sm" style={{ transition: "transform 0.2s", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "none"} onClick={() => navigate('/login')}>
-                  <div style={{ height: "180px", backgroundColor: "rgba(255,255,255,0.05)", position: "relative" }}>
-                    {course.thumbnail ? (
-                      <img src={getImageUrl(course.thumbnail)} alt={course.title} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                    ) : (
-                      <div className="d-flex align-items-center justify-content-center w-100 h-100 placeholder-wave">
-                        <span style={{ fontSize: "3rem" }}>📚</span>
-                      </div>
-                    )}
-                    <span className="badge bg-primary position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill">
-                      {course.category}
-                    </span>
-                  </div>
+            {courses.map((course) => {
+              const imageUrl = getImageUrl(course.thumbnail);
+              const hasImageFailed = imageErrors[course._id];
+              return (
+                <div key={course._id} className="col-12 col-md-6 col-lg-4">
+                  <div className="card h-100 bg-dark-card border-dark-custom overflow-hidden shadow-sm" style={{ transition: "transform 0.2s", cursor: "pointer" }} onMouseEnter={(e) => e.currentTarget.style.transform = "translateY(-5px)"} onMouseLeave={(e) => e.currentTarget.style.transform = "none"} onClick={() => navigate('/login')}>
+                    <div style={{ height: "180px", backgroundColor: "rgba(255,255,255,0.05)", position: "relative" }}>
+                      <img
+                        src={course.thumbnail && !hasImageFailed ? imageUrl : placeholderImage}
+                        alt={course.title}
+                        style={{ width: "100%", height: "100%", objectFit: "cover" }}
+                        onError={(e) => {
+                          if (!hasImageFailed) {
+                            e.currentTarget.src = placeholderImage;
+                            setImageErrors((prev) => ({ ...prev, [course._id]: true }));
+                          }
+                        }}
+                      />
+                      <span className="badge bg-primary position-absolute top-0 end-0 m-3 px-3 py-2 rounded-pill">
+                        {course.category}
+                      </span>
+                    </div>
                   <div className="card-body d-flex flex-column p-4">
                     <h5 className="card-title fw-bold text-truncate mb-2" title={course.title}>{course.title}</h5>
                     <p className="card-text text-muted mb-4" style={{ fontSize: "0.9rem", display: "-webkit-box", WebkitLineClamp: "3", WebkitBoxOrient: "vertical", overflow: "hidden" }}>
