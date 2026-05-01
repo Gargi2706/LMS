@@ -3,8 +3,8 @@ import { Link } from "react-router-dom";
 const getImageUrl = (path) => {
   if (!path) return "";
   if (path.startsWith("http")) return path;
-  const rawBaseUrl = import.meta.env.VITE_API_URL;
-  const baseUrl = rawBaseUrl ? rawBaseUrl.replace(/\/+$/g, "").replace(/\/api$/g, "") : "";
+  const rawBaseUrl = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const baseUrl = rawBaseUrl.replace(/\/+$/g, "").replace(/\/api$/g, "");
   return `${baseUrl}${path}`;
 };
 
