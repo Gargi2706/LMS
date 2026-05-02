@@ -1,19 +1,33 @@
 const multer = require("multer");
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("cloudinary").v2;
 const path = require("path");
 const ApiError = require("../utils/ApiError");
 
+// Configure Cloudinary
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
 // Storage config
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: async (req, file) => {
+    let folderName = "eduflow/images";
+    let resourceType = "image";
+
     if (file.mimetype.startsWith("video/")) {
-      cb(null, "uploads/videos/");
-    } else {
-      cb(null, "uploads/images/");
+      folderName = "eduflow/videos";
+      resourceType = "video";
     }
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    cb(null, `${uniqueSuffix}${path.extname(file.originalname)}`);
+
+    return {
+      folder: folderName,
+      resource_type: resourceType,
+      allowed_formats: ["jpg", "png", "jpeg", "webp", "mp4", "mkv", "webm", "mov"],
+    };
   },
 });
 

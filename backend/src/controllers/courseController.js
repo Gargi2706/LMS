@@ -3,9 +3,7 @@ const { sendResponse } = require("../utils/ApiResponse");
 
 const createCourse = async (req, res, next) => {
   try {
-    const thumbnailPath = req.file
-      ? `/uploads/images/${req.file.filename}`
-      : "";
+    const thumbnailPath = req.file ? req.file.path : "";
     const course = await courseService.createCourse(
       req.user._id,
       req.body,
@@ -47,9 +45,7 @@ const getCourseById = async (req, res, next) => {
 
 const updateCourse = async (req, res, next) => {
   try {
-    const thumbnailPath = req.file
-      ? `/uploads/images/${req.file.filename}`
-      : null;
+    const thumbnailPath = req.file ? req.file.path : null;
     const course = await courseService.updateCourse(
       req.params.id,
       req.user._id,

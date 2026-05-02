@@ -3,7 +3,7 @@ const { sendResponse } = require("../utils/ApiResponse");
 
 const addLesson = async (req, res, next) => {
   try {
-    const videoPath = req.file ? `/uploads/videos/${req.file.filename}` : "";
+    const videoPath = req.file ? req.file.path : "";
     const lesson = await lessonService.addLesson(
       req.params.courseId,
       req.user._id,
@@ -36,7 +36,7 @@ const getLessonById = async (req, res, next) => {
 
 const updateLesson = async (req, res, next) => {
   try {
-    const videoPath = req.file ? `/uploads/videos/${req.file.filename}` : null;
+    const videoPath = req.file ? req.file.path : null;
     const lesson = await lessonService.updateLesson(
       req.params.id,
       req.user._id,
