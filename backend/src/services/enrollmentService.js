@@ -38,9 +38,12 @@ const markLessonComplete = async (studentId, courseId, lessonId) => {
   const lesson = await Lesson.findOne({ _id: lessonId, course: courseId });
   if (!lesson) throw new ApiError(404, "Lesson not found in this course.");
 
-  if (!enrollment.completedLessons.includes(lessonId)) {
-    enrollment.completedLessons.push(lessonId);
+  // Deduplicate and add lessonId safely
+  const currentLessons = enrollment.completedLessons.map(id => id.toString());
+  if (!currentLessons.includes(lessonId.toString())) {
+    currentLessons.push(lessonId.toString());
   }
+  enrollment.completedLessons = currentLessons;
 
   // Recalculate progress
   const totalLessons = await Lesson.countDocuments({ course: courseId });
@@ -49,6 +52,7 @@ const markLessonComplete = async (studentId, courseId, lessonId) => {
       ? Math.round((enrollment.completedLessons.length / totalLessons) * 100)
       : 0;
 
+  if (enrollment.progress > 100) enrollment.progress = 100;
   if (enrollment.progress === 100) enrollment.status = "completed";
 
   await enrollment.save();
