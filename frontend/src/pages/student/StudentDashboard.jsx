@@ -90,15 +90,17 @@ const StudentDashboard = () => {
       ) : (
         <div className="row g-3">
           {enrollments.map((en) => (
-            <div key={en._id} className="col-md-4">
-              <CourseCard
-                course={en.course}
-                showProgress
-                progress={en.progress}
-                actionLabel="Continue"
-                onAction={() => navigate(`/student/my-courses/${en.course._id}`)}
-              />
-            </div>
+            en.course && (
+              <div key={en._id} className="col-md-4">
+                <CourseCard
+                  course={en.course}
+                  showProgress
+                  progress={en.progress}
+                  actionLabel="Continue"
+                  onAction={() => navigate(`/student/my-courses/${en.course._id}`)}
+                />
+              </div>
+            )
           ))}
         </div>
       )}
